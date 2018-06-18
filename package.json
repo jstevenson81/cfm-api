@@ -1,0 +1,24 @@
+{
+  "name": "cfm-api",
+  "version": "1.0.0",
+  "description": "This is the API that supports the backend of the CFM website.  It's a node based function application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jonathan Stevenson",
+  "license": "ISC",
+  "dependencies": {
+    "azure-functions-ts-essentials": "^1.3.2",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2",
+    "mongodb": "^3.0.10"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.1.0",
+    "@types/lodash": "^4.14.109",
+    "@types/moment": "^2.13.0",
+    "@types/mongodb": "^3.0.20",
+    "@types/node": "^10.3.3"
+  }
+}
