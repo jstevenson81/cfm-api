@@ -2,8 +2,7 @@ import { Context, HttpMethod, HttpRequest, HttpResponse, HttpStatusCode } from '
 
 export async function run(context: Context, req: HttpRequest) {
     context.log('JavaScript HTTP trigger function processed a request.');
-
-    if (req.query.name || (req.body && req.body.name)) {
+if (req.query.name || (req.body && req.body.name)) {
         context.res = {
             // status: 200, /* Defaults to 200 */
             body: "Hello " + (req.query.name || req.body.name),

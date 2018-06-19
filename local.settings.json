@@ -2,7 +2,11 @@
   "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "",
-    "FUNCTIONS_WORKER_RUNTIME": "node"
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "CfmDbUrl": "mongodb://cfm.documents.azure.com:10255/?ssl=true&replicaSet=globaldb",
+    "CfmDb": "cfm",
+    "DbUser": "cfm",
+    "DbPass": "p9lg6UNarjymziXmwoEYSOT33799Eskr3OWdEtt9WYGL72LiXwKgVfW7h9H8QBTJr4WfstdWonDVysvNkQwWSQ=="
   },
   "ConnectionStrings": {}
 }
