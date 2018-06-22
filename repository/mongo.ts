@@ -1,4 +1,4 @@
-import { MongoClient, Db, Collection } from "mongodb";
+import { MongoClient, Db, Collection, UpdateWriteOpResult } from "mongodb";
 
 export class Repository {
 
@@ -44,7 +44,7 @@ export class Repository {
     try {
       // find the item in the collection
       var item = await this.findAsync(collectionName, { id: data.id });
-      if (item)
+      if (item || item.length > 0)
         // the item exists, so throw an exception
         throw (`
                 There is already an item with the id of ${data.id}
@@ -58,5 +58,28 @@ export class Repository {
     catch (err) {
       throw err;
     }
-   };
+  };
+
+  updateAsync = async (collectionName: string, data: any): Promise<UpdateWriteOpResult> => {
+    try {
+      // get the collection
+      var collection = await this.getCollectionAsync(collectionName);
+      // update the item
+      var result = await collection.updateOne({ id: data.id }, data);
+      // if we couldn't find an item or we didn't modify an item, throw an error
+      if (result.matchedCount === 0 || result.modifiedCount === 0) {
+        // throw the error that we coudln't find an item
+        throw (`
+                An item with the id of ${data.id} does not exist in the collection
+                ${collectionName}.  To update an item one must exist in the collection.`
+        );
+      }
+      // return the result
+      return result;
+    }
+    // re-throw
+    catch (err) {
+      throw err;
+    }
+  };
 }
