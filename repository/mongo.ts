@@ -1,4 +1,4 @@
-import { MongoClient, Db, Collection, UpdateWriteOpResult } from "mongodb";
+import { MongoClient, Db, Collection, UpdateWriteOpResult, DeleteWriteOpResultObject } from "mongodb";
 
 export class Repository {
 
@@ -71,6 +71,29 @@ export class Repository {
         // throw the error that we coudln't find an item
         throw (`
                 An item with the id of ${data.id} does not exist in the collection
+                ${collectionName}.  To update an item one must exist in the collection.`
+        );
+      }
+      // return the result
+      return result;
+    }
+    // re-throw
+    catch (err) {
+      throw err;
+    }
+  };
+
+  deleteAsync = async (collectionName: string, id: string): Promise<DeleteWriteOpResultObject> => {
+    try {
+      // get the collection
+      var collection = await this.getCollectionAsync(collectionName);
+      // update the item
+      var result = await collection.deleteOne({ id: id });
+      // if we couldn't find an item or we didn't modify an item, throw an error
+      if (result.connection === 0) {
+        // throw the error that we coudln't find an item
+        throw (`
+                An item with the id of ${id} does not exist in the collection
                 ${collectionName}.  To update an item one must exist in the collection.`
         );
       }
