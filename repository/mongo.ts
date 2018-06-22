@@ -1,4 +1,5 @@
 import { MongoClient, Db, Collection, UpdateWriteOpResult, DeleteWriteOpResultObject } from "mongodb";
+import { IModel } from "../models/IModel";
 
 export class Repository {
 
@@ -40,7 +41,7 @@ export class Repository {
     }
   };
 
-  insertAsync = async (collectionName: string, data: any): Promise<void> => {
+  insertAsync = async (collectionName: string, data: IModel): Promise<void> => {
     try {
       // find the item in the collection
       var item = await this.findAsync(collectionName, { id: data.id });
@@ -60,7 +61,7 @@ export class Repository {
     }
   };
 
-  updateAsync = async (collectionName: string, data: any): Promise<UpdateWriteOpResult> => {
+  updateAsync = async (collectionName: string, data: IModel): Promise<UpdateWriteOpResult> => {
     try {
       // get the collection
       var collection = await this.getCollectionAsync(collectionName);

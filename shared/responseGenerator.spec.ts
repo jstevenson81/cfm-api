@@ -1,4 +1,3 @@
-import { IResponseGenerator } from "../interfaces/IResponseGenerator";
 import { ResponseGenerator } from "./responseGenerator";
 import { HttpResponse } from "azure-functions-ts-essentials";
 
