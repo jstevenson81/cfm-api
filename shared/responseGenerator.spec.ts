@@ -2,7 +2,7 @@ import { IResponseGenerator } from "../interfaces/IResponseGenerator";
 import { ResponseGenerator } from "./responseGenerator";
 import { HttpResponse } from "azure-functions-ts-essentials";
 
-describe("response generator", () => {
+describe("response generator tests", () => {
 
   it("should return a success response", () => {
     const stub = new ResponseGenerator();
