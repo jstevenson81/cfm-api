@@ -6,6 +6,9 @@
       "identifier": "runFunctionsHost",
       "type": "shell",
       "command": "func host start",
+      "options":{
+        "cwd": "${workspaceFolder}/functions/mom"
+      },
       "isBackground": true,
       "presentation": {
         "reveal": "always"

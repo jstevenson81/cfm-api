@@ -1,15 +1,28 @@
-import { MongoClient, Db, Collection, UpdateWriteOpResult, DeleteWriteOpResultObject } from "mongodb";
+import { MongoClient, Collection, UpdateWriteOpResult, DeleteWriteOpResultObject, Db } from "mongodb";
 import { IModel } from "../models/IModel";
 
-export class Repository {
+export class MongoRepository {
 
   client: MongoClient;
 
-  connectAsync = async (): Promise<MongoClient> => {
+  connectAsync = async (): Promise<Db> => {
     try {
-      const client = await MongoClient.connect(process.env.CfmDbUrl);
+      const client = await MongoClient.connect(
+        // the url
+        process.env.CfmDbUrl,
+        // options
+        {
+          // auth settings
+          auth: {
+            user: process.env.DbUser,
+            password: process.env.DbPass
+          }
+        }
+      );
+      // set this.client = the client we just opened.
       this.client = client;
-      return client;
+      // return the database
+      return client.db(process.env.CfmDb);
     } catch (err) {
       throw err;
     }
@@ -18,7 +31,7 @@ export class Repository {
   getCollectionAsync = async (collectionName: string): Promise<Collection> => {
     try {
       var client = await this.connectAsync();
-      return client.db(process.env.CfmDb).collection(collectionName);
+      return client.collection(collectionName);
     }
     catch (err) {
       throw err;
@@ -29,9 +42,11 @@ export class Repository {
     this.client.close();
   };
 
-  findAsync = async (collectionName: string, query: any): Promise<Array<any>> => {
+  findAsync = async (collectionName: string, query?: any): Promise<Array<any>> => {
     try {
       var collection = await this.getCollectionAsync(collectionName);
+      // if query is undefined, we should set it to a enpty object
+      query = query || {};
       var data = await collection.find(query).toArray();
       data.forEach(item => delete item._id);
       return data;
