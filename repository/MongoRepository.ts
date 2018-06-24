@@ -1,5 +1,5 @@
 import { MongoClient, Collection, UpdateWriteOpResult, DeleteWriteOpResultObject, Db } from "mongodb";
-import { IModel } from "../models/IModel";
+import { IModel } from "../models/interfaces/IModel";
 
 export class MongoRepository {
 

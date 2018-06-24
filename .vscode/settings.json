@@ -1,5 +1,10 @@
 {
   "azureFunctions.projectRuntime": "beta",
   "azureFunctions.projectLanguage": "JavaScript",
-  "azureFunctions.templateFilter": "Verified"
+  "azureFunctions.templateFilter": "Verified",
+  "files.exclude": {
+    // exclude .js and .js.map files, when in a TypeScript project
+    "**/*.js": { "when": "$(basename).ts"},
+    "**/*.js.map": true
+  }
 }

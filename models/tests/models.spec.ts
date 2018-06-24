@@ -1,12 +1,11 @@
 
-import { HttpResponse } from "azure-functions-ts-essentials";
-import { Mom } from "./Mom";
-import { Question } from "./Question";
+import { Mom } from "../Mom";
+import { Question } from "../Question";
 
 describe("model tests", () => {
 
   it("should add a new id to mom if one is not passed", () => {
-    var actual = new Mom(null, 'June', 2018, 'Test', []);
+    var actual = new Mom(null, 'June', 2018, 'Test', 'https://blah.com/blah.jpg', []);
     expect(actual.id).toBeDefined();
   });
 
@@ -21,8 +20,7 @@ describe("model tests", () => {
   });
 
   it("should not add a new id to mom if one is passed", () => {
-    var actual = new Mom('1', 'June', 2018, 'Test', []);
+    var actual = new Mom('1', 'June', 2018, 'Test', 'https://blah.com/blah.jpg', []);
     expect(actual.id).toEqual('1');
   });
-
  });

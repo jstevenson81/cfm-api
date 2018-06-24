@@ -1,4 +1,4 @@
-import { IModel } from "./IModel";
+import { IModel } from "./interfaces/IModel";
 import { Guid } from "guid-typescript";
 
 export class Question implements IModel {

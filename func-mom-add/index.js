@@ -35,9 +35,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var func_index_1 = require("../func.index");
 function run(context, req) {
     return __awaiter(this, void 0, void 0, function () {
+        var responseGenerator, repository;
         return __generator(this, function (_a) {
+            responseGenerator = new func_index_1.ResponseGenerator();
+            repository = new func_index_1.MongoRepository();
+            try {
+            }
+            catch (err) {
+                responseGenerator.errorResponse(err);
+            }
+            finally {
+                repository.close();
+            }
             return [2 /*return*/];
         });
     });
