@@ -35,20 +35,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var MongoRepository_1 = require("../../../repository/MongoRepository");
-var responseGenerator_1 = require("../../../shared/responseGenerator");
+var func_index_1 = require("../func.index");
 function run(context, req) {
     return __awaiter(this, void 0, void 0, function () {
-        var responseGenerator, repository, list, err_1;
+        var repository, responseGenerator, id, list, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    responseGenerator = new responseGenerator_1.ResponseGenerator();
+                    repository = new func_index_1.MongoRepository();
+                    responseGenerator = new func_index_1.ResponseGenerator();
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, 4, 5]);
-                    repository = new MongoRepository_1.MongoRepository();
-                    return [4 /*yield*/, repository.findAsync('mom')];
+                    id = req.params.id;
+                    if (!id) {
+                        throw "\n      There was no id included in the route.\n      To query for a single member of the month, you need to\n      include an id parameter in the route like /api/mom/1.";
+                    }
+                    return [4 /*yield*/, repository.findAsync('mom', { id: id })];
                 case 2:
                     list = _a.sent();
                     context.res = responseGenerator.successResponse(list);
@@ -57,12 +60,13 @@ function run(context, req) {
                     err_1 = _a.sent();
                     context.res = responseGenerator.errorResponse(err_1);
                     return [3 /*break*/, 5];
-                case 4: return [7 /*endfinally*/];
+                case 4:
+                    repository.close();
+                    return [7 /*endfinally*/];
                 case 5: return [2 /*return*/];
             }
         });
     });
 }
 exports.run = run;
-;
 //# sourceMappingURL=index.js.map

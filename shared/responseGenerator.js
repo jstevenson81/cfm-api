@@ -16,4 +16,4 @@ var ResponseGenerator = /** @class */ (function () {
     return ResponseGenerator;
 }());
 exports.ResponseGenerator = ResponseGenerator;
-//# sourceMappingURL=responseGenerator.js.map
+//# sourceMappingURL=ResponseGenerator.js.map

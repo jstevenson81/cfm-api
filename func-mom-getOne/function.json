@@ -6,7 +6,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "mom/{id:alpha}",
+      "route": "mom/{id:guid}",
       "methods": [
         "get"
       ]

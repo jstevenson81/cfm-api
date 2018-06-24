@@ -1,4 +1,4 @@
-import { ResponseGenerator } from "./responseGenerator";
+import { ResponseGenerator } from "./ResponseGenerator";
 import { HttpResponse } from "azure-functions-ts-essentials";
 
 describe("response generator tests", () => {
