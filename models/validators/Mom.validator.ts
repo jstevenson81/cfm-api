@@ -1,37 +1,47 @@
-import { ValidateJS } from 'validate.js';
+import { validate } from 'validate.js';
 import { IValidator } from '../interfaces/IValidator';
 import { Mom } from '../Mom';
+import { IModel } from '../interfaces/IModel';
 
 export class MomValidator implements IValidator {
+  private readonly _constraints: any;
+  private readonly _attributes: IModel;
 
-  validator: ValidateJS;
-  constraints: any;
-  attributes: any;
+  getAttributes = (): IModel => {
+    return this._attributes;
+  };
+  getConstraints = (): any => {
+    return this._constraints;
+  };
 
   constructor(model: Mom) {
     // setup the attributes
-    this.attributes = model;
-    this.constraints = {
+    this._attributes = model;
+    this._constraints = {
       month: {
-        presence: { allowEmpty: false, message: 'The month is required and cannot be empty.' },
-        format: {pattern: /January|February|March|April|May|June|July|August|September|October|November|December/, message: 'Please use the full name of the month like January.'}
+        presence: { allowEmpty: false, message: 'is required and cannot be empty.' },
+        format: {
+          pattern: /January|February|March|April|May|June|July|August|September|October|November|December/,
+          message: 'must be the full name of the month like January.'
+        }
       },
       year: {
-        presence: { allowEmpty: false, message: 'The year is required and cannot be empty.' },
-        numericality: {message: 'The year must be a number.'}
+        presence: { allowEmpty: false, message: 'is required and cannot be empty.' },
+        numericality: { message: 'must be a number.' }
       },
       title: {
-        presence: { allowEmpty: false, message: 'The title is required and cannot be empty.' }
+        presence: { allowEmpty: false, message: 'is required and cannot be empty.' }
       },
       pictureUrl: {
-        presence: { allowEmpty: false, message: 'The picture url is required and cannot be empty.' },
-        URL: { message: 'The picture url must be a valid URL.' }
+        presence: {
+          allowEmpty: false,
+          message: 'is required and cannot be empty.'
+        },
+        url: { message: 'must be a valid URL.' }
       }
     };
   }
-
-  validate = (): any => {
-    return this.validator.validate(this.attributes, this.constraints, { format: 'grouped' });
+  runValidation = (): any => {
+    return validate(this._attributes, this._constraints, { format: 'grouped' });
   };
-
 }

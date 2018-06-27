@@ -1,7 +1,9 @@
-import { ValidateJS } from "validate.js";
+import { ValidateJS } from 'validate.js';
+import { IModel } from './IModel';
 
 export interface IValidator {
-  validator: ValidateJS;
-  constraints: any;
-  attributes: any;
+  getConstraints(): any;
+  getAttributes(): IModel;
+
+  runValidation(): any;
 }

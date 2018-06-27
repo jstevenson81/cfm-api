@@ -1,5 +1,5 @@
 import { Context, HttpResponse } from "azure-functions-ts-essentials";
-import { IResponseGenerator } from "../interfaces/IResponseGenerator";
+import { IResponseGenerator } from "./interfaces/IResponseGenerator";
 
 
 export class ResponseGenerator implements IResponseGenerator {
