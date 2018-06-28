@@ -4,7 +4,12 @@
   "description": "This is the API that supports the backend of the CFM website.  It's a node based function application.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "rimraf ./dist && tsc",
+    "build-watch": "rimraf ./dist && tsc -w",
+    "clean": "rimraf ./dist",
+    "build-start": "npm run build && cd ./dist && func host start",
+    "build-watch-start": "npm run build && cd ./dist && func host start"
   },
   "author": "Jonathan Stevenson",
   "license": "ISC",
@@ -24,6 +29,7 @@
     "@types/node": "^10.3.3",
     "jest": "^23.1.0",
     "jest-html-reporter": "^2.4.0",
+    "rimraf": "^2.6.2",
     "ts-jest": "^22.4.6",
     "typescript": "^2.9.2"
   },
