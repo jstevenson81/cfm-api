@@ -5,7 +5,7 @@
       "label": "Run Functions Host",
       "identifier": "runFunctionsHost",
       "type": "shell",
-      "command": "npm run build-watch-start",
+      "command": "npm run start",
       "isBackground": true,
       "presentation": {
         "reveal": "always"

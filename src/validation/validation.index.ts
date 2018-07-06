@@ -6,5 +6,5 @@ export * from './interfaces/base/IValidator';
 export * from './interfaces/modelConstraints/IMomConstraints';
 export * from './interfaces/validateJs/IValidateJsConstraints';
 
-export * from './validators/Mom';
-export * from './validators/Question';
+export * from './validators/MomValidator';
+export * from './validators/QuestionValidator';

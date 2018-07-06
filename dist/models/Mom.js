@@ -14,4 +14,3 @@ var Mom = /** @class */ (function () {
     return Mom;
 }());
 exports.Mom = Mom;
-//# sourceMappingURL=Mom.js.map

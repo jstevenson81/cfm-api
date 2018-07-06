@@ -66,4 +66,3 @@ function run(context, req) {
 }
 exports.run = run;
 ;
-//# sourceMappingURL=index.js.map

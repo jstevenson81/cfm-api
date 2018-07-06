@@ -1,7 +1,7 @@
 // third party imports
 import { Guid } from 'guid-typescript';
 // local imports
-import { IModel, Question } from "./models.index";
+import { IModel, Question } from './models.index';
 
 export class Mom implements IModel {
   id: string;

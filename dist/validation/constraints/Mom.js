@@ -47,4 +47,3 @@ var MomConstraints = /** @class */ (function () {
 }());
 exports.MomConstraints = MomConstraints;
 ;
-//# sourceMappingURL=Mom.js.map

@@ -18,9 +18,12 @@ export class MomValidator implements IValidator {
 
   constructor(model: Mom) {
     // setup the attributes
+
     this._attributes = model;
+
     this._constraints = new MomConstraints().constraints;
   }
+
   runValidation = (): any => {
     return validate(this._attributes, this._constraints, { format: 'grouped' });
   };

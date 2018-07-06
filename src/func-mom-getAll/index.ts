@@ -1,7 +1,8 @@
-import { Context, HttpRequest, MongoRepository, ResponseGenerator } from '../func.index';
+import { Context, HttpRequest, MongoCosmosProcessFactory, ResponseGenerator } from '../func.index';
 
 export async function run(context: Context, req: HttpRequest) {
-    var repository = new MongoRepository();
+    var repository = MongoCosmosProcessFactory();
+
     var responseGenerator = new ResponseGenerator();
     try {
         var list = await repository.findAsync('mom');

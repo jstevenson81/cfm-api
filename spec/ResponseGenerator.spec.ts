@@ -1,9 +1,9 @@
-import { ResponseGenerator } from "../src/shared/shared.index";
-import { HttpResponse } from "azure-functions-ts-essentials";
+import { ResponseGenerator } from '../src/shared/shared.index';
+import { HttpResponse } from 'azure-functions-ts-essentials';
 
-describe("response generator tests", () => {
+describe('response generator tests', () => {
 
-  it("should return a success response", () => {
+  it('should return a success response', () => {
     const stub = new ResponseGenerator();
     var expected: HttpResponse = { status: 200, body: '' };
     var actual = stub.successResponse('');
@@ -12,7 +12,7 @@ describe("response generator tests", () => {
 
   });
 
-  it("should return an error response", () => {
+  it('should return an error response', () => {
     const stub = new ResponseGenerator();
     var expected: HttpResponse = { status: 500, body: '' };
     var actual = stub.errorResponse('');

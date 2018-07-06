@@ -34,25 +34,54 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+// thrid party imports
+var lodash_1 = __importDefault(require("lodash"));
+// local imports
 var func_index_1 = require("../func.index");
 function run(context, req) {
     return __awaiter(this, void 0, void 0, function () {
-        var responseGenerator, repository;
+        var responseGenerator, repository, nRecord, validator, errors, iRecord, err_1;
         return __generator(this, function (_a) {
-            responseGenerator = new func_index_1.ResponseGenerator();
-            repository = new func_index_1.MongoRepository();
-            try {
+            switch (_a.label) {
+                case 0:
+                    responseGenerator = new func_index_1.ResponseGenerator();
+                    repository = new func_index_1.MongoRepository();
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 4, 5, 6]);
+                    nRecord = context.bindings.data;
+                    if (!nRecord) {
+                        throw "There was no mom record found in the body of the request.\n      The body must look like data: {mom record} for this operation to run.";
+                    }
+                    validator = new func_index_1.MomValidator(nRecord);
+                    errors = validator.runValidation();
+                    // if we have errors throw
+                    if (!lodash_1.default.isUndefined(errors))
+                        throw (errors);
+                    // else, add a new record
+                    return [4 /*yield*/, repository.insertAsync('mom', nRecord)];
+                case 2:
+                    // else, add a new record
+                    _a.sent();
+                    return [4 /*yield*/, repository.findAsync('mom', { month: nRecord.month, year: nRecord.year })];
+                case 3:
+                    iRecord = _a.sent();
+                    context.res = responseGenerator.successResponse(iRecord);
+                    return [3 /*break*/, 6];
+                case 4:
+                    err_1 = _a.sent();
+                    responseGenerator.errorResponse(err_1);
+                    return [3 /*break*/, 6];
+                case 5:
+                    repository.close();
+                    return [7 /*endfinally*/];
+                case 6: return [2 /*return*/];
             }
-            catch (err) {
-                responseGenerator.errorResponse(err);
-            }
-            finally {
-                repository.close();
-            }
-            return [2 /*return*/];
         });
     });
 }
 exports.run = run;
-//# sourceMappingURL=index.js.map

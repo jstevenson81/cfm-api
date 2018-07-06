@@ -34,13 +34,51 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+// thrid party imports
+var lodash_1 = __importDefault(require("lodash"));
+// local imports
+var func_index_1 = require("../func.index");
 function run(context, req) {
     return __awaiter(this, void 0, void 0, function () {
+        var repository, responseGenerator, uRecord, validator, errors, updResp, err_1;
         return __generator(this, function (_a) {
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    repository = new func_index_1.MongoRepository();
+                    responseGenerator = new func_index_1.ResponseGenerator();
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, 4, 5]);
+                    uRecord = context.bindings.data;
+                    // if we don't have a record, the throw
+                    if (!uRecord) {
+                        throw "There was no mom record found in the body of the request.\n      The body must look like data: {mom record} for this operation to run.";
+                    }
+                    validator = new func_index_1.MomValidator(uRecord);
+                    errors = validator.runValidation();
+                    // if we have errors throw
+                    if (!lodash_1.default.isUndefined(errors))
+                        throw (errors);
+                    return [4 /*yield*/, repository.updateAsync('mom', uRecord)];
+                case 2:
+                    updResp = _a.sent();
+                    // return a success response
+                    context.res = responseGenerator.successResponse("Updated the MOM record with the id of " + uRecord.id + ".\n      " + updResp.modifiedCount + " record(s) were modified.  The record looked like:\n\n      " + JSON.stringify(uRecord));
+                    return [3 /*break*/, 5];
+                case 3:
+                    err_1 = _a.sent();
+                    context.res = responseGenerator.errorResponse(err_1);
+                    return [3 /*break*/, 5];
+                case 4:
+                    repository.close();
+                    return [7 /*endfinally*/];
+                case 5: return [2 /*return*/];
+            }
         });
     });
 }
 exports.run = run;
-//# sourceMappingURL=index.js.map

@@ -1,10 +1,17 @@
 // third party imports
-import { MongoClient, Collection, UpdateWriteOpResult, DeleteWriteOpResultObject, Db } from "mongodb";
+import { MongoClient, Collection, UpdateWriteOpResult, DeleteWriteOpResultObject, Db } from 'mongodb';
 
 // local imports
 import { IModel } from '../models/models.index'
 
-export class MongoRepository {
+export class MongoRepository<T> {
+
+  constructor(
+    private connectionString: string,
+    private userName: string,
+    private password: string,
+    private dbName: string) {
+  }
 
   client: MongoClient;
 
@@ -12,26 +19,26 @@ export class MongoRepository {
     try {
       const client = await MongoClient.connect(
         // the url
-        process.env.CfmDbUrl,
+        this.connectionString,
         // options
         {
           // auth settings
           auth: {
-            user: process.env.DbUser,
-            password: process.env.DbPass
+            user: this.userName,
+            password: this.password
           }
         }
       );
       // set this.client = the client we just opened.
       this.client = client;
       // return the database
-      return client.db(process.env.CfmDb);
+      return client.db(this.dbName);
     } catch (err) {
       throw err;
     }
   };
 
-  getCollectionAsync = async (collectionName: string): Promise<Collection> => {
+  getCollectionAsync = async (collectionName: string): Promise<Collection<T>> => {
     try {
       var client = await this.connectAsync();
       return client.collection(collectionName);
@@ -42,10 +49,12 @@ export class MongoRepository {
   };
 
   close = (): any => {
-    this.client.close();
+    if (this.client && this.client.close) {
+      this.client.close();
+    }
   };
 
-  findAsync = async (collectionName: string, query?: any): Promise<Array<any>> => {
+  findAsync = async (collectionName: string, query?: any): Promise<Array<T>> => {
     try {
       var collection = await this.getCollectionAsync(collectionName);
       // if query is undefined, we should set it to a enpty object

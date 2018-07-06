@@ -5,4 +5,3 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./Mom"));
 __export(require("./Question"));
-//# sourceMappingURL=models.index.js.map
